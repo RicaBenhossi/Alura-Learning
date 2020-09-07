@@ -48,9 +48,9 @@ echo "------------------------------------------------------------"
 echo
 echo "Importing container files from branch $container_branch_name (merging)"
 echo
-execute_command "mkdir -p $course_folder_name/$course_branch_name"
-execute_command "cd $course_folder_name/$course_branch_name"
 execute_command "git merge $container_branch_name"
+execute_command "mkdir -p $course_folder_name/$course_branch_name"
+execute_command "mv .devcontainer $course_folder_name/$course_branch_name"
 
 echo
 echo "------------------------------------------------------------"
