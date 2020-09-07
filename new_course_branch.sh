@@ -53,7 +53,7 @@ execute_command "mkdir -p $course_folder_name/$course_branch_name"
 execute_command "mv .devcontainer $course_folder_name/$course_branch_name"
 execute_command "git add ."
 commit_message="Branch $course_branch_name created. Ready to use."
-execute_command "git commit -m $commit_message"
+execute_command "git commit -m "$commit_message""
 echo
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
