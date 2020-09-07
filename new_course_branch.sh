@@ -32,9 +32,12 @@ echo "What is the main folder or language folder of the course? (E.g.: Java/cour
 read course_folder_name
 echo
 
+echo "What is the branch of container (E.g.: ContainerJava)? Leav it blank if there is not a container."
+read container_branch_name
+echo
+
 course_branch_name=$course_order-$course_name
 base_branch_name="branch_base"
-container_branch_name="Container"
 
 echo
 echo "------------------------------------------------------------"
@@ -48,10 +51,13 @@ echo "------------------------------------------------------------"
 echo
 echo "Importing container files from branch $container_branch_name (merging)"
 echo
-execute_command "git checkout $container_branch_name .devcontainer/"
-execute_command "mkdir -p $course_folder_name/$course_branch_name"
-execute_command "mv .devcontainer $course_folder_name/$course_branch_name"
-execute_command "git add ."
+if [[ -n "$container_branch_name" ]]; then
+    execute_command "git checkout $container_branch_name .devcontainer/"
+    execute_command "mkdir -p $course_folder_name/$course_branch_name"
+    execute_command "mv .devcontainer $course_folder_name/$course_branch_name"
+    execute_command "git add ."
+fi
+
 commit_message="Branch $course_branch_name created. Ready to use."
 execute_command "git commit -m "$commit_message""
 execute_command "cd $course_branch_name"
