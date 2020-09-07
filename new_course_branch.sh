@@ -28,7 +28,7 @@ echo
 echo "------------------------------------------------------------"
 echo
 echo "Creating a new course branch based on $base_branch_name"
-git branch -b $course_branch_name $base_branch_name
+git checkout -b $course_branch_name $base_branch_name
 
 echo
 echo "------------------------------------------------------------"
