@@ -120,6 +120,8 @@ fi
 commit_message="Branch $course_branch_name created. Ready to use."
 execute_command "git commit -m "$commit_message""
 
+create_tasks_json $course_branch_name
+
 merge_new_branch_to_main $course_branch_name
 
 execute_command "cd $course_main_folder_name/$course_branch_name"
@@ -128,7 +130,6 @@ echo
 echo "** Branch $course_branch_name created and sent to github. **"
 echo
 
-create_tasks_json $course_branch_name
 
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
