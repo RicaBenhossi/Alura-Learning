@@ -48,10 +48,12 @@ echo "------------------------------------------------------------"
 echo
 echo "Importing container files from branch $container_branch_name (merging)"
 echo
-execute_command "git merge $container_branch_name"
+execute_command "git checkout $container_branch_name .devcontainer/"
 execute_command "mkdir -p $course_folder_name/$course_branch_name"
 execute_command "mv .devcontainer $course_folder_name/$course_branch_name"
-
+execute_command "git add ."
+commit_message="Branch $course_branch_name created. Ready to use."
+execute_command "git commit -m $commit_message"
 echo
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
