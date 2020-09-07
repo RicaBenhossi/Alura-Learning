@@ -21,13 +21,9 @@ merge_new_branch_to_main (){
             [Yy]|[Nn])
                 if [[ ($response == "Y") || ($response == "y") ]]; then
                     execute_command "git switch main"
-                    read
                     execute_command "git pull origin"
-                    read
                     execute_command "git merge $course_branch_name"
-                    read
                     execute_command "git push origin"
-                    read
                     execute_command "git switch $course_branch_name"
                 fi
                 break
