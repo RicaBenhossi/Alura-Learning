@@ -1,5 +1,17 @@
 #! /bin/bash
 
+execute_command(){
+    command_to_execute=$1
+    $command_to_execute
+    error=$?
+    if [[ $error -ne 0 ]]; then
+        echo
+        echo "Command fail to execute! Fix it and try again."
+        echo
+        $SHELL
+    fi
+}
+
 echo "************************************************************"
 echo "*                                                          *"
 echo "*                 CREATE NEW COURSE BRANCH                 *"
@@ -28,15 +40,17 @@ echo
 echo "------------------------------------------------------------"
 echo
 echo "Creating a new course branch based on $base_branch_name"
-git checkout -b $course_branch_name $base_branch_name
+echo
+execute_command "git checkout -b $course_branch_name $base_branch_name"
 
 echo
 echo "------------------------------------------------------------"
 echo
 echo "Importing container files from branch $container_branch_name (merging)"
-mkdir -p $course_folder_name/$course_branch_name
-cd $course_folder_name/$course_branch_name
-git merge $container_branch_name
+echo
+execute_command "mkdir -p $course_folder_name/$course_branch_name"
+execute_command "cd $course_folder_name/$course_branch_name"
+execute_command "git merge $container_branch_name"
 
 echo
 echo "------------------------------------------------------------"
