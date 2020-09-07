@@ -12,28 +12,64 @@ execute_command(){
     fi
 }
 
-merge_new_branch_to_main (){
+confirm_option_yn(){
+    warning_message=$1
     while true
     do
-        echo "$1"
+        echo "$warning_message" >&2
         read -r -s -n 1 response
         case "$response" in
             [Yy]|[Nn])
                 if [[ ($response == "Y") || ($response == "y") ]]; then
-                    execute_command "git switch main"
-                    execute_command "git pull origin"
-                    execute_command "git merge $course_branch_name"
-                    execute_command "git push origin"
-                    execute_command "git switch $course_branch_name"
+                    return $(true)
+                else
+                    return $(false)
                 fi
                 break
             ;;
             *)
-                echo "Invalid option."
+                echo "Invalid option." >&2
             ;;
         esac
     done
 }
+
+merge_new_branch_to_main (){
+    branch_name=$1
+    if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
+        execute_command "git switch main"
+        execute_command "git pull origin"
+        execute_command "git merge $branch_name"
+        execute_command "git push origin"
+        execute_command "git switch $branch_name"
+    fi
+}
+
+create_tasks_json(){
+    branch_name=$1
+
+    if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
+        execute_command "mkdir .vscode/"
+        echo '{' >> .vscode/tasks.json
+        echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> .vscode/tasks.json
+        echo '    // for the documentation about the tasks.json format' >> .vscode/tasks.json
+        echo '    "version": "2.0.0",' >> .vscode/tasks.json
+        echo '    "tasks": [' >> .vscode/tasks.json
+        echo '        {' >> .vscode/tasks.json
+        echo '            "label": "Checkout right branch",' >> .vscode/tasks.json
+        echo '            "type": "shell",' >> .vscode/tasks.json
+        echo '            "command": "git checkout '$branch_name'",' >> .vscode/tasks.json
+        echo '            "problemMatcher": [],' >> .vscode/tasks.json
+        echo '            "runOptions": {"runOn": "folderOpen"}' >> .vscode/tasks.json
+        echo '        }' >> .vscode/tasks.json
+        echo '    ]' >> .vscode/tasks.json
+        echo '}' >> .vscode/tasks.json
+
+        echo
+        echo "File tasks.json created."
+    fi
+}
+
 
 echo "************************************************************"
 echo "*                                                          *"
@@ -84,13 +120,16 @@ fi
 commit_message="Branch $course_branch_name created. Ready to use."
 execute_command "git commit -m "$commit_message""
 
-merge_new_branch_to_main "Would you like to merge this new branch to main? [Y/N]"
+merge_new_branch_to_main $course_branch_name
 
 execute_command "cd $course_main_folder_name/$course_branch_name"
 execute_command "git push --set-upstream origin "$course_branch_name""
 echo
 echo "** Branch $course_branch_name created and sent to github. **"
 echo
+
+create_tasks_json $course_branch_name
+
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
 echo "------------------------------------------------------------"
