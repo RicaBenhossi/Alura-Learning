@@ -36,7 +36,7 @@ echo
 echo "Importing container files from branch $container_branch_name (merging)"
 mkdir -p $course_folder_name/$course_branch_name
 cd $course_folder_name/$course_branch_name
-git merge container_branch_name
+git merge $container_branch_name
 
 echo
 echo "------------------------------------------------------------"
