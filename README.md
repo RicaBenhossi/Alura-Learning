@@ -1,25 +1,25 @@
 # Alura-Learning
 
-This repo contains all the notes, codes and exercises of my ALura Courses
+This repo contains all the notes, codes and exercises of my Alura Courses
 
-Every course has a specific branch. You have to checkout to the branch of the course you want to see.
-Every change on dockerfile or devcontainer.json should be done on branch Container and MERGED to the other branches.
+Every course has a specific branch. You have to switch to the branch of the course you want to see.
+Every change on dockerfile or devcontainer.json should be done on branch Container of the project/language and commited.
+After that you must switcht to the course/project branch and CHECKOUT it to the branche (git checkout Container .devcontainer/).
+Otherwise, some files can be deleted.
+** Every language course must, if possible, have it's own container.
+Every change on readme or gitignore files must be done on branch branch_base. After commit it, it must be merged to the project/course branch
 
 ## Creating a new Course branch
 
-1. Create a new branch with the course name (see Branch list to follow the pattern) from branch_base branch.
-2. Checkout to the new branch
-3. Merge the branch Container into it to add the .devcontainer folder
-4. Add the task.json of vscode to autoamtically switch to the right branch on opening folder
-5. Commit and push these changes.
-6. Merge these changes to branch master.
-7. Checkout to the course branch and you're done.
+1. Go to branch MAIN
+2. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
+3. You're done...
 
 ## Branch List
 
 ### JAVA
 
-- Container
+- ContainerJava
 - 01-JavaPart01
 - 02-03-JavaPart02-03-Heranca_Interfaces
 - 04-JavaPart04-Exceptions
