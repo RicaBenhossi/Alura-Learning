@@ -34,21 +34,31 @@ confirm_option_yn(){
     done
 }
 
-merge_new_branch_to_main (){
-    branch_name=$1
-    if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
-        execute_command "git switch main"
-        execute_command "git pull origin"
-        execute_command "git merge $branch_name"
-        execute_command "git push origin"
-        execute_command "git switch $branch_name"
-    fi
+commit_branch(){
+    message=$1
+    execute_command "git add ."
+    execute_command "git commit -m "$message""
+}
+
+create_new_branch(){
+    course_branch=$1
+    base_branch=$2
+    course_folder=$3
+    execute_command "git checkout -b $course_branch $base_branch"
+    execute_command "mkdir -p $course_folder/$course_branch"
+    execute_command "git push --set-upstream origin "$course_branch""
+    commit_branch "Branch created."
 }
 
 create_tasks_json(){
     branch_name=$1
 
     if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
+
+        echo
+        echo "------------------------------------------------------------"
+        echo
+        echo "Creating .vscode/tasks.json file."
         execute_command "mkdir .vscode/"
         echo '{' >> .vscode/tasks.json
         echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> .vscode/tasks.json
@@ -64,9 +74,45 @@ create_tasks_json(){
         echo '        }' >> .vscode/tasks.json
         echo '    ]' >> .vscode/tasks.json
         echo '}' >> .vscode/tasks.json
-
         echo
         echo "File tasks.json created."
+        echo
+        echo "Commiting task.json file creation."
+        echo
+        commit_branch "File .vscode/tasks.json created."
+    fi
+}
+
+import_container_files()
+{
+    container_branch=$1
+    if [[ -n "$container_branch" ]]; then
+        course_folder=$2
+        course_branch=$3
+
+        echo "------------------------------------------------------------"
+        echo
+        echo "Importing container files from branch $container_branch (checkout)"
+        echo
+
+        execute_command "git checkout $container_branch .devcontainer/"
+        execute_command "mv .devcontainer $course_folder/$course_branch"
+        echo
+        echo "Commiting adition of container files."
+        echo
+        commit_branch "Container files created."
+    fi
+
+}
+
+merge_new_branch_to_main (){
+    branch_name=$1
+    if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
+        execute_command "git switch main"
+        execute_command "git pull origin"
+        execute_command "git merge $branch_name"
+        execute_command "git push origin"
+        execute_command "git switch $branch_name"
     fi
 }
 
@@ -103,33 +149,20 @@ echo "------------------------------------------------------------"
 echo
 echo "Creating a new course branch based on $base_branch_name"
 echo
-execute_command "git checkout -b $course_branch_name $base_branch_name"
 
-echo
-echo "------------------------------------------------------------"
-echo
-echo "Importing container files from branch $container_branch_name (checkout)"
-echo
-if [[ -n "$container_branch_name" ]]; then
-    execute_command "git checkout $container_branch_name .devcontainer/"
-    execute_command "mkdir -p $course_main_folder_name/$course_branch_name"
-    execute_command "mv .devcontainer $course_main_folder_name/$course_branch_name"
-    execute_command "git add ."
-fi
+create_new_branch $course_branch_name $base_branch_name $course_main_folder_name
 
-commit_message="Branch $course_branch_name created. Ready to use."
-execute_command "git commit -m "$commit_message""
-
-create_tasks_json $course_branch_name
-
-merge_new_branch_to_main $course_branch_name
-
-execute_command "cd $course_main_folder_name/$course_branch_name"
-execute_command "git push --set-upstream origin "$course_branch_name""
 echo
 echo "** Branch $course_branch_name created and sent to github. **"
 echo
 
+execute_command "cd $course_main_folder_name/$course_branch_name"
+
+create_tasks_json $course_branch_name
+
+import_container_files $container_branch_name $course_main_folder_name $course_branch_name
+
+merge_new_branch_to_main $course_branch_name
 
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
