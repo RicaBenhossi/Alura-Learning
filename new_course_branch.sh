@@ -6,7 +6,8 @@ execute_command(){
     error=$?
     if [[ $error -ne 0 ]]; then
         echo
-        echo "Command fail to execute! Fix it and try again."
+        echo "Try to execute $command_to_execute"
+        echo "Execution fail! Fix it and try again."
         echo
         $SHELL
     fi
@@ -154,8 +155,6 @@ echo
 echo "** Branch $course_branch_name created.*"
 echo
 
-execute_command "cd $course_main_folder_name/$course_branch_name"
-
 create_tasks_json $course_branch_name
 
 import_container_files $container_branch_name $course_main_folder_name $course_branch_name
@@ -163,6 +162,8 @@ import_container_files $container_branch_name $course_main_folder_name $course_b
 execute_command "git push --set-upstream origin "$course_branch_name""
 
 merge_new_branch_to_main $course_branch_name
+
+execute_command "cd $course_main_folder_name/$course_branch_name"
 
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
