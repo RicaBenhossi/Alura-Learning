@@ -51,6 +51,7 @@ create_new_branch(){
 
 create_tasks_json(){
     branch_name=$1
+    vscode_folder="$2/.vscode"
 
     if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
 
@@ -58,21 +59,21 @@ create_tasks_json(){
         echo "------------------------------------------------------------"
         echo
         echo "Creating .vscode/tasks.json file."
-        execute_command "mkdir .vscode/"
-        echo '{' >> .vscode/tasks.json
-        echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> .vscode/tasks.json
-        echo '    // for the documentation about the tasks.json format' >> .vscode/tasks.json
-        echo '    "version": "2.0.0",' >> .vscode/tasks.json
-        echo '    "tasks": [' >> .vscode/tasks.json
-        echo '        {' >> .vscode/tasks.json
-        echo '            "label": "Checkout right branch",' >> .vscode/tasks.json
-        echo '            "type": "shell",' >> .vscode/tasks.json
-        echo '            "command": "git checkout '$branch_name'",' >> .vscode/tasks.json
-        echo '            "problemMatcher": [],' >> .vscode/tasks.json
-        echo '            "runOptions": {"runOn": "folderOpen"}' >> .vscode/tasks.json
-        echo '        }' >> .vscode/tasks.json
-        echo '    ]' >> .vscode/tasks.json
-        echo '}' >> .vscode/tasks.json
+        execute_command "mkdir $vscode_folder"
+        echo '{' >> $vscode_folder/tasks.json
+        echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> $vscode_folder/tasks.json
+        echo '    // for the documentation about the tasks.json format' >> $vscode_folder/tasks.json
+        echo '    "version": "2.0.0",' >> $vscode_folder/tasks.json
+        echo '    "tasks": [' >> $vscode_folder/tasks.json
+        echo '        {' >> $vscode_folder/tasks.json
+        echo '            "label": "Checkout right branch",' >> $vscode_folder/tasks.json
+        echo '            "type": "shell",' >> $vscode_folder/tasks.json
+        echo '            "command": "git checkout '$branch_name'",' >> $vscode_folder/tasks.json
+        echo '            "problemMatcher": [],' >> $vscode_folder/tasks.json
+        echo '            "runOptions": {"runOn": "folderOpen"}' >> $vscode_folder/tasks.json
+        echo '        }' >> $vscode_folder/tasks.json
+        echo '    ]' >> $vscode_folder/tasks.json
+        echo '}' >> $vscode_folder/tasks.json
         echo
         echo "File tasks.json created."
         echo
@@ -157,7 +158,7 @@ echo
 echo "** Branch $course_branch_name created.*"
 echo
 
-create_tasks_json $course_branch_name
+create_tasks_json $course_branch_name "$course_main_folder_name/$course_branch_name"
 
 import_container_files $container_branch_name $course_main_folder_name $course_branch_name
 
