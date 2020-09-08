@@ -106,6 +106,8 @@ import_container_files()
 
 merge_new_branch_to_main (){
     branch_name=$1
+    echo
+    echo
     if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
         execute_command "git switch main"
         execute_command "git pull origin"
@@ -160,6 +162,9 @@ create_tasks_json $course_branch_name
 import_container_files $container_branch_name $course_main_folder_name $course_branch_name
 
 execute_command "git push --set-upstream origin "$course_branch_name""
+echo
+echo "Branch "$course_branch_name" pushed to github."
+echo
 
 merge_new_branch_to_main $course_branch_name
 
