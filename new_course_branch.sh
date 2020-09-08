@@ -46,8 +46,6 @@ create_new_branch(){
     course_folder=$3
     execute_command "git checkout -b $course_branch $base_branch"
     execute_command "mkdir -p $course_folder/$course_branch"
-    execute_command "git push --set-upstream origin "$course_branch""
-    commit_branch "Branch created."
 }
 
 create_tasks_json(){
@@ -153,7 +151,7 @@ echo
 create_new_branch $course_branch_name $base_branch_name $course_main_folder_name
 
 echo
-echo "** Branch $course_branch_name created and sent to github. **"
+echo "** Branch $course_branch_name created.*"
 echo
 
 execute_command "cd $course_main_folder_name/$course_branch_name"
@@ -161,6 +159,8 @@ execute_command "cd $course_main_folder_name/$course_branch_name"
 create_tasks_json $course_branch_name
 
 import_container_files $container_branch_name $course_main_folder_name $course_branch_name
+
+execute_command "git push --set-upstream origin "$course_branch_name""
 
 merge_new_branch_to_main $course_branch_name
 
