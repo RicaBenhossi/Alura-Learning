@@ -1,0 +1,14 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Checkout right branch",
+            "type": "shell",
+            "command": "git checkout 13-javaJPA_Part02",
+            "problemMatcher": [],
+            "runOptions": {"runOn": "folderOpen"}
+        }
+    ]
+}
