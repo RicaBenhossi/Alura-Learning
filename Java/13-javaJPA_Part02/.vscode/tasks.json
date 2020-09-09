@@ -5,8 +5,8 @@
     "tasks": [
         {
             "label": "Checkout right branch",
-            "type": "shell",
-            "command": "git checkout 13-javaJPA_Part02",
+            "type": "process",
+            "command": [],
             "problemMatcher": [],
             "runOptions": {"runOn": "folderOpen"}
         }
