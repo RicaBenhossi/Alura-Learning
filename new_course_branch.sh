@@ -41,25 +41,43 @@ commit_branch(){
     execute_command "git commit -m "$message""
 }
 
+create_course_folders(){
+    echo
+    echo "------------------------------------------------------------"
+    echo
+    echo "Creating folders for branch $base_branch_name"
+    echo
+    main_folder_name=$1
+    course_folder_name=$2
+    execute_command "mkdir -p $main_folder_name/$course_folder_name"
+    echo
+    echo "** Folders sucessfully created. **"
+}
+
 create_new_branch(){
+    echo
+    echo "------------------------------------------------------------"
+    echo
+    echo "Creating a new course branch based on $base_branch_name"
+    echo
     course_branch=$1
     base_branch=$2
     course_folder=$3
     execute_command "git checkout -b $course_branch $base_branch"
-    execute_command "mkdir -p $course_folder/$course_branch"
+    echo
+    echo "** Branch $course_branch_name created. **"
+    echo
 }
 
 create_tasks_json(){
-    branch_name=$1
-    vscode_folder="$2/.vscode"
-
     if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
-
+        branch_name=$1
+        vscode_folder="$2/$branch_name/.vscode"
         echo
         echo "------------------------------------------------------------"
         echo
         echo "Creating .vscode/tasks.json file."
-        execute_command "mkdir $vscode_folder"
+        execute_command "mkdir -p $vscode_folder"
         echo '{' >> $vscode_folder/tasks.json
         echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> $vscode_folder/tasks.json
         echo '    // for the documentation about the tasks.json format' >> $vscode_folder/tasks.json
@@ -80,42 +98,58 @@ create_tasks_json(){
         echo "Commiting task.json file creation."
         echo
         commit_branch "File .vscode/tasks.json created."
+        echo
+        echo "** Tasks.json sucessfully created. **"
+        echo
     fi
 }
 
-import_container_files()
-{
+import_container_files(){
     container_branch=$1
-    if [[ -n "$container_branch" ]]; then
-        course_folder=$2
-        course_branch=$3
-
-        echo "------------------------------------------------------------"
-        echo
-        echo "Importing container files from branch $container_branch (checkout)"
-        echo
-
-        execute_command "git checkout $container_branch .devcontainer/"
-        execute_command "mv .devcontainer $course_folder/$course_branch"
-        echo
-        echo "Commiting adition of container files."
-        echo
-        commit_branch "Container files created."
-    fi
-
+    main_folder=$2
+    echo "------------------------------------------------------------"
+    echo
+    echo "Importing container files from branch $container_branch (checkout)"
+    echo
+    execute_command "git checkout $container_branch .devcontainer/"
+    execute_command "mv .devcontainer $main_folder"
+    echo
+    echo "Commiting adition of container files."
+    echo
+    commit_branch "Container files created."
+    echo
+    echo "** Container files successfully imported. **"
+    echo
 }
 
 merge_new_branch_to_main (){
     branch_name=$1
     echo
+    echo "------------------------------------------------------------"
     echo
     if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
+        echo
         execute_command "git switch main"
         execute_command "git pull origin"
         execute_command "git merge $branch_name"
         execute_command "git push origin"
         execute_command "git switch $branch_name"
+        echo
+        echo "** Branch $branch_name sucessfully merges into branch main"
+        echo
     fi
+}
+
+push_to_github(){
+    echo
+    echo "------------------------------------------------------------"
+    echo
+    echo "Pushing $base_branch_name to github"
+    echo
+    execute_command "git push --set-upstream origin "$course_branch_name""
+    echo
+    echo "** Branch "$course_branch_name" sucessfully pushed to github. **"
+    echo
 }
 
 
@@ -146,26 +180,15 @@ echo
 course_branch_name=$course_order-$course_name
 base_branch_name="branch_base"
 
-echo
-echo "------------------------------------------------------------"
-echo
-echo "Creating a new course branch based on $base_branch_name"
-echo
-
 create_new_branch $course_branch_name $base_branch_name $course_main_folder_name
 
-echo
-echo "** Branch $course_branch_name created.*"
-echo
+create_course_folders $course_main_folder_name $course_branch
 
-create_tasks_json $course_branch_name "$course_main_folder_name/$course_branch_name"
+import_container_files $container_branch_name $course_main_folder_name
 
-import_container_files $container_branch_name $course_main_folder_name $course_branch_name
+create_tasks_json $course_branch_name "$course_main_folder_name"
 
-execute_command "git push --set-upstream origin "$course_branch_name""
-echo
-echo "Branch "$course_branch_name" pushed to github."
-echo
+push_to_github $course_branch_name
 
 merge_new_branch_to_main $course_branch_name
 
