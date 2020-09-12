@@ -41,12 +41,90 @@ commit_branch(){
     execute_command "git commit -m "$message""
 }
 
+branch_name_exist(){
+    branch_name=$1
+
+    branch_list="$(git branch --list)"
+    if [[ "$branch_list" == *"$branch_name"* ]]; then
+        return $(true)
+    else
+        return $(false)
+    fi
+}
+
+create_branch_name(){
+    while true
+    do
+        echo "What is the name of the course?" >&2
+        read course_name
+        echo >&2
+
+        while true
+        do
+            echo "What is the order number of the course? (See the last course added in README file)" >&2
+            read course_order
+            echo >&2
+            case $course_order in
+                ''|*[!0-9]*)
+                    echo >&2
+                    echo "The input must be a nunber." >&2
+                    echo >&2 ;;
+                *) break ;;
+            esac
+        done
+
+        if ($(branch_name_exist $course_order-$course_name)); then
+            echo >&2
+            echo "================================================================================" >&2
+            echo "Error" >&2
+            echo >&2
+            echo "      The branch name $branch_name already exist. Choose another name." >&2
+            echo >&2
+            echo "================================================================================" >&2
+            echo >&2
+            echo >&2
+        else
+            break
+        fi
+    done
+
+    echo "$course_order-$course_name"
+}
+
+get_container_branch(){
+    while true
+    do
+        echo "Here is the list of branches we have." >&2
+        echo >&2
+        echo "$(git branch --list)" >&2
+        echo >&2
+        echo "What is the branch of container for this new branch (E.g.: ContainerJava)? Leave it blank if there is not a container." >&2
+        read container_branch_name
+        echo >&2
+
+        if (! $(branch_name_exist $container_branch_name)); then
+            echo >&2
+            echo "================================================================================" >&2
+            echo "Error" >&2
+            echo >&2
+            echo "      The branch $container_branch_name doesn't exist. Choose another one." >&2
+            echo >&2
+            echo "================================================================================" >&2
+            echo >&2
+            echo >&2
+        else
+            break
+        fi
+    done
+    echo $container_branch_name
+}
+
 create_course_folders(){
-    echo
-    echo "------------------------------------------------------------"
-    echo
-    echo "Creating folders for branch $base_branch_name"
-    echo
+    echo >&2
+    echo "------------------------------------------------------------" >&2
+    echo >&2
+    echo "Creating folders for branch $base_branch_name" >&2
+    echo >&2
     main_folder_name=$1
     course_folder_name=$2
     execute_command "mkdir -p $main_folder_name/$course_folder_name"
@@ -55,28 +133,28 @@ create_course_folders(){
 }
 
 create_new_branch(){
-    echo
-    echo "------------------------------------------------------------"
-    echo
-    echo "Creating a new course branch based on $base_branch_name"
-    echo
+    echo >&2
+    echo "------------------------------------------------------------" >&2
+    echo >&2
+    echo "Creating a new course branch based on $base_branch_name" >&2
+    echo >&2
     course_branch=$1
     base_branch=$2
     course_folder=$3
     execute_command "git checkout -b $course_branch $base_branch"
-    echo
-    echo "** Branch $course_branch_name created. **"
-    echo
+    echo >&2
+    echo "** Branch $course_branch_name created. **" >&2
+    echo >&2
 }
 
 create_tasks_json(){
     if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
         branch_name=$1
         vscode_folder="$2/$branch_name/.vscode"
-        echo
-        echo "------------------------------------------------------------"
-        echo
-        echo "Creating .vscode/tasks.json file."
+        echo >&2
+        echo "------------------------------------------------------------" >&2
+        echo >&2
+        echo "Creating .vscode/tasks.json file." >&2
         execute_command "mkdir -p $vscode_folder"
         echo '{' >> $vscode_folder/tasks.json
         echo '    // See https://go.microsoft.com/fwlink/?LinkId=733558' >> $vscode_folder/tasks.json
@@ -92,64 +170,66 @@ create_tasks_json(){
         echo '        }' >> $vscode_folder/tasks.json
         echo '    ]' >> $vscode_folder/tasks.json
         echo '}' >> $vscode_folder/tasks.json
-        echo
-        echo "File tasks.json created."
-        echo
-        echo "Commiting task.json file creation."
-        echo
+        echo >&2
+        echo "File tasks.json created." >&2
+        echo >&2
+        echo "Commiting task.json file creation." >&2
+        echo >&2
         commit_branch "File .vscode/tasks.json created."
-        echo
-        echo "** Tasks.json sucessfully created. **"
-        echo
+        echo >&2
+        echo "** Tasks.json sucessfully created. **" >&2
+        echo >&2
     fi
 }
 
 import_container_files(){
     container_branch=$1
-    main_folder=$2
-    echo "------------------------------------------------------------"
-    echo
-    echo "Importing container files from branch $container_branch (checkout)"
-    echo
-    execute_command "git checkout $container_branch .devcontainer/"
-    execute_command "mv .devcontainer $main_folder"
-    echo
-    echo "Commiting adition of container files."
-    echo
-    commit_branch "Container files created."
-    echo
-    echo "** Container files successfully imported. **"
-    echo
+    if [[ ! ($container_branch == "") ]]; then
+        main_folder=$2
+        echo "------------------------------------------------------------" >&2
+        echo >&2
+        echo "Importing container files from branch $container_branch (checkout)" >&2
+        echo >&2
+        execute_command "git checkout $container_branch .devcontainer/"
+        execute_command "mv .devcontainer $main_folder"
+        echo >&2
+        echo "Commiting adition of container files." >&2
+        echo >&2
+        commit_branch "Container files created."
+        echo >&2
+        echo "** Container files successfully imported. **" >&2
+        echo >&2
+    fi
 }
 
-merge_new_branch_to_main (){
+merge_new_branch_to_main(){
     branch_name=$1
-    echo
-    echo "------------------------------------------------------------"
-    echo
+    echo >&2
+    echo "------------------------------------------------------------" >&2
+    echo >&2
     if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
-        echo
+        echo >&2
         execute_command "git switch main"
         execute_command "git pull origin"
         execute_command "git merge $branch_name"
         execute_command "git push origin"
         execute_command "git switch $branch_name"
-        echo
-        echo "** Branch $branch_name sucessfully merges into branch main"
-        echo
+        echo >&2
+        echo "** Branch $branch_name sucessfully merges into branch main" >&2
+        echo >&2
     fi
 }
 
 push_to_github(){
-    echo
-    echo "------------------------------------------------------------"
-    echo
-    echo "Pushing $base_branch_name to github"
-    echo
+    echo >&2
+    echo "------------------------------------------------------------" >&2
+    echo >&2
+    echo "Pushing $base_branch_name to github" >&2
+    echo >&2
     execute_command "git push --set-upstream origin "$course_branch_name""
-    echo
-    echo "** Branch "$course_branch_name" sucessfully pushed to github. **"
-    echo
+    echo >&2
+    echo "** Branch "$course_branch_name" sucessfully pushed to github. **" >&2
+    echo >&2
 }
 
 
@@ -161,23 +241,14 @@ echo "************************************************************"
 echo
 echo
 
-echo "What is the name of the course?"
-read course_name
-echo
-
-echo "What is the order number of the course? (See the last course added in README file)"
-read course_order
-echo
+course_branch_name=$(create_branch_name)
 
 echo "What is the main folder or language folder of the course? (E.g.: Java/course or Python/course)"
 read course_main_folder_name
 echo
 
-echo "What is the branch of container (E.g.: ContainerJava)? Leave it blank if there is not a container."
-read container_branch_name
-echo
+container_branch_name=$(get_container_branch)
 
-course_branch_name=$course_order-$course_name
 base_branch_name="branch_base"
 
 create_new_branch $course_branch_name $base_branch_name $course_main_folder_name
