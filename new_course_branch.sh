@@ -91,14 +91,14 @@ create_branch_name(){
     echo "$course_order-$course_name"
 }
 
-get_container_branch(){
+get_base_branch(){
     while true
     do
         echo "Here is the list of branches we have." >&2
         echo >&2
         echo "$(git branch --list)" >&2
         echo >&2
-        echo "What is the branch of container for this new branch (E.g.: ContainerJava)? Leave it blank if there is not a container." >&2
+        echo "What is the branch you want to use as the base of this new branch?" >&2
         read container_branch_name
         echo >&2
 
@@ -140,7 +140,6 @@ create_new_branch(){
     echo >&2
     course_branch=$1
     base_branch=$2
-    course_folder=$3
     execute_command "git checkout -b $course_branch $base_branch"
     echo >&2
     echo "** Branch $course_branch_name created. **" >&2
@@ -150,7 +149,7 @@ create_new_branch(){
 create_tasks_json(){
     if (confirm_option_yn "Would you like to create standard tasks.json? [Y/N]") ; then
         branch_name=$1
-        vscode_folder="$2/$branch_name/.vscode"
+        vscode_folder="$2$branch_name/.vscode"
         echo >&2
         echo "------------------------------------------------------------" >&2
         echo >&2
@@ -243,27 +242,29 @@ echo
 
 course_branch_name=$(create_branch_name)
 
-echo "What is the main folder or language folder of the course? (E.g.: Java/course or Python/course)"
-read course_main_folder_name
-echo
+# echo "What is the main folder or language folder of the course? (E.g.: Java/course or Python/course)"
+# read course_main_folder_name
+# echo
 
-container_branch_name=$(get_container_branch)
+# container_branch_name=$(get_container_branch)
 
-base_branch_name="branch_base"
+base_branch_name=$(get_base_branch)
 
-create_new_branch $course_branch_name $base_branch_name $course_main_folder_name
+create_new_branch $course_branch_name $base_branch_name
 
-create_course_folders $course_main_folder_name $course_branch
+# create_course_folders $course_main_folder_name $course_branch
 
-import_container_files $container_branch_name $course_main_folder_name
+# import_container_files $container_branch_name $course_main_folder_name
 
-create_tasks_json $course_branch_name "$course_main_folder_name"
+course_main_folder_name=$(ls -d */)
 
-push_to_github $course_branch_name
+create_tasks_json $course_branch_name $course_main_folder_name
 
-merge_new_branch_to_main $course_branch_name
+# push_to_github $course_branch_name
 
-execute_command "cd $course_main_folder_name/$course_branch_name"
+# merge_new_branch_to_main $course_branch_name
+
+execute_command "cd $course_main_folder_name$course_branch_name"
 
 echo "------------------------------------------------------------"
 echo "|                 PROCESS FINISHED. ENJOY!                 |"
