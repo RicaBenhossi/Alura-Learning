@@ -119,19 +119,6 @@ get_base_branch(){
     echo $container_branch_name
 }
 
-create_course_folders(){
-    echo >&2
-    echo "------------------------------------------------------------" >&2
-    echo >&2
-    echo "Creating folders for branch $base_branch_name" >&2
-    echo >&2
-    main_folder_name=$1
-    course_folder_name=$2
-    execute_command "mkdir -p $main_folder_name/$course_folder_name"
-    echo
-    echo "** Folders sucessfully created. **"
-}
-
 create_new_branch(){
     echo >&2
     echo "------------------------------------------------------------" >&2
@@ -181,25 +168,6 @@ create_tasks_json(){
     fi
 }
 
-import_container_files(){
-    container_branch=$1
-    if [[ ! ($container_branch == "") ]]; then
-        main_folder=$2
-        echo "------------------------------------------------------------" >&2
-        echo >&2
-        echo "Importing container files from branch $container_branch (checkout)" >&2
-        echo >&2
-        execute_command "git checkout $container_branch .devcontainer/"
-        execute_command "mv .devcontainer $main_folder"
-        echo >&2
-        echo "Commiting adition of container files." >&2
-        echo >&2
-        commit_branch "Container files created."
-        echo >&2
-        echo "** Container files successfully imported. **" >&2
-        echo >&2
-    fi
-}
 
 merge_new_branch_to_main(){
     branch_name=$1
@@ -242,27 +210,17 @@ echo
 
 course_branch_name=$(create_branch_name)
 
-# echo "What is the main folder or language folder of the course? (E.g.: Java/course or Python/course)"
-# read course_main_folder_name
-# echo
-
-# container_branch_name=$(get_container_branch)
-
 base_branch_name=$(get_base_branch)
 
 create_new_branch $course_branch_name $base_branch_name
-
-# create_course_folders $course_main_folder_name $course_branch
-
-# import_container_files $container_branch_name $course_main_folder_name
 
 course_main_folder_name=$(ls -d */)
 
 create_tasks_json $course_branch_name $course_main_folder_name
 
-# push_to_github $course_branch_name
+push_to_github $course_branch_name
 
-# merge_new_branch_to_main $course_branch_name
+merge_new_branch_to_main $course_branch_name
 
 execute_command "cd $course_main_folder_name$course_branch_name"
 
