@@ -188,17 +188,17 @@ merge_new_branch_to_main(){
 }
 
 push_to_github(){
+    branch_name-$1
     echo >&2
     echo "------------------------------------------------------------" >&2
     echo >&2
-    echo "Pushing $base_branch_name to github" >&2
+    echo "Pushing "$branch_name" to github" >&2
     echo >&2
-    execute_command "git push --set-upstream origin "$course_branch_name""
+    execute_command "git push --set-upstream origin "$branch_name""
     echo >&2
-    echo "** Branch "$course_branch_name" sucessfully pushed to github. **" >&2
+    echo "** Branch "$branch_name" sucessfully pushed to github. **" >&2
     echo >&2
 }
-
 
 echo "************************************************************"
 echo "*                                                          *"
