@@ -62,6 +62,8 @@ RUN cd /usr/local \
 RUN sudo yum update -y \
     && sudo yum install mariadb mariadb-server -y
 
+RUN sudo systemctl enable mariadb
+
 # RUN chmod +x /home/benhossi/apache* && \
 
     # echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
