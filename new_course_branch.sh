@@ -176,11 +176,11 @@ merge_new_branch_to_main(){
     echo >&2
     if (confirm_option_yn "Would you like to merge this new branch to main? [Y/N]") ; then
         echo >&2
-        execute_command "git switch main"
+        execute_command "git checkout main"
         execute_command "git pull origin"
         execute_command "git merge $branch_name"
         execute_command "git push origin"
-        execute_command "git switch $branch_name"
+        execute_command "git checkout $branch_name"
         echo >&2
         echo "** Branch $branch_name sucessfully merges into branch main" >&2
         echo >&2
