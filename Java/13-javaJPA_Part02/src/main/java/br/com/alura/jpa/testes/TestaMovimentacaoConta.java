@@ -12,9 +12,11 @@ public class TestaMovimentacaoConta {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("alura");
         EntityManager em = emf.createEntityManager();
 
-        Movimentacao movimentacao = em.find(Movimentacao.class, 1L);
+        Movimentacao movimentacao = em.find(Movimentacao.class, 2L);
         Conta conta = movimentacao.getConta();
+        int quantidadeDeMovimentacoes = conta.getmovimentacoes().size();
 
         System.out.println("Titular da conta: " + conta.getTitular());
+        System.out.println("Quantidade de movimentações: " + quantidadeDeMovimentacoes);
     }
 }
