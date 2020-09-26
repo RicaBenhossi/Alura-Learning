@@ -64,6 +64,8 @@ RUN sudo yum update -y \
 
 RUN sudo systemctl enable mariadb
 
+EXPOSE 3306/tcp
+
 # RUN chmod +x /home/benhossi/apache* && \
 
     # echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
