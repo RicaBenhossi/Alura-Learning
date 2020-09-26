@@ -64,7 +64,7 @@ RUN sudo yum update -y \
 
 RUN sudo systemctl enable mariadb
 
-EXPOSE 3306/tcp
+EXPOSE 3306
 
 # RUN chmod +x /home/benhossi/apache* && \
 
