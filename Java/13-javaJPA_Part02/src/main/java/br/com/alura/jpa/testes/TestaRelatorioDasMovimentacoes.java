@@ -36,20 +36,5 @@ public class TestaRelatorioDasMovimentacoes {
             System.out.println("-".repeat(repeatSeparator));
         }
 
-        // Print the sum of all values in Movimentacao. Retusn is always a BigDecimal.
-        jpql = "select sum(m.valor) from Movimentacao m";
-        TypedQuery<BigDecimal> querySum = em.createQuery(jpql, BigDecimal.class);
-
-        System.out.println("=".repeat(repeatSeparator));
-        BigDecimal somaDasMovimentacoes = querySum.getSingleResult();
-        System.out.println("A soma de todas as movimentações registradas é de: " + somaDasMovimentacoes);
-
-        // Print the average (avg) of values on Movimentacao
-        jpql = "select avg(m.valor) from Movimentacao m";
-        TypedQuery <Double> queryAvg = em.createQuery(jpql, Double.class);
-
-        System.out.println("=".repeat(repeatSeparator));
-        Double mediaDasMovimentacoes = queryAvg.getSingleResult();
-        System.out.println("A média das movimentações é: " + mediaDasMovimentacoes);
     }
 }
