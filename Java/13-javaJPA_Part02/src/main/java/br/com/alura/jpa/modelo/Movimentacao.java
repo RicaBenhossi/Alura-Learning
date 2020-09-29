@@ -14,6 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+// NOTE @NamedQueries
+// we can create predefined queries and name it to use on other classes.
+@NamedQuery(name = "MediaDiariaDasMovimentacoes",
+            query = "select new br.com.alura.jpa.modelo.MediaComData(avg(m.valor), day(m.data), month(m.data)) from Movimentacao m group by day(m.data), month(m.data), year(m.data)")
+@NamedQuery(name = "SomaMovimentacoes",
+            query = "select sum(m.valor) from Movimentacao m")
 @Entity
 public class Movimentacao {
 	@Id

@@ -15,7 +15,8 @@ public class TestaRelatorioDasMovimentacoes {
         int repeatSeparator = 120;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("alura");
         EntityManager em = emf.createEntityManager();
-        // region Notes about JOIN FETCH
+        // NOTE JOIN FETCH
+        // region
         // When you just "select c from Conta c" you are loading info from Movimentacao using Lazyness or Eager (see Conta.java)
         // To avoid the N+1 problem (see Conta.java), we can set de relationship with Movimentaco directly in select statement using
         //    JOIN FETCH on FK field.

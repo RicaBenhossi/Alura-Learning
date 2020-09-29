@@ -22,7 +22,7 @@ public class TesteMediaDiariaDasMovimentacoes {
         TypedQuery<Double> query = em.createQuery(jpql,Double.class);
         List<Double> mediaDasMovimentacoes = query.getResultList();
 
-        // But here we've a problem: we can't print the dat. So we have the average value but we can't print the day that
+        // But here we've a problem: we can't print the date. So we have the average value but we can't print the day that
         // the averagebelongs to;
         System.out.println("=".repeat(repeatSeparator));
         for (Double media : mediaDasMovimentacoes) {
@@ -35,6 +35,7 @@ public class TesteMediaDiariaDasMovimentacoes {
         // If we run the select above using TypedQuery <Double> we'll get an exception because now we've more than 1 result
         // in our query and these results are not double. So we need a more generic type of query.
         Query query2 = em.createQuery(jpql);
+        // NOTE Getting results of multiple types
         // In order to store these multityped result we can use an Object array that is a more generic type.
         // Altough it is not the best form of doing because, as the Object is too generiic, we have to properly convert its infos
         // Thats why we got an warning on query2.GetResultList() because this method can't garantee that it will
