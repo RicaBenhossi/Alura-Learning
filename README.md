@@ -11,9 +11,10 @@ Every change on readme or gitignore files must be done on branch branch_base. Af
 
 ## Creating a new Course branch
 
-1. Go to branch MAIN
-2. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
-3. You're done...
+1. Add the new branch name to README.md file.
+2. Go to branch MAIN
+3. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
+4. You're done...
 
 ## Branch List
 
