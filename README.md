@@ -31,3 +31,5 @@ Every change on readme or gitignore files must be done on branch branch_base. Af
 - 10-JavaServletsPart01
 - 11-JavaServletsPart02
 - 12-JavaJPA_Part01
+- 13-JavaJpa_part02
+- 14-DataStructure_Java
