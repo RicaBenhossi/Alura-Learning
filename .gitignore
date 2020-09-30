@@ -13,8 +13,3 @@ bin-release/
 *.ipa
 *.apk
 *.war
-target
-*.class
-*.MF
-.classpath
-.project
