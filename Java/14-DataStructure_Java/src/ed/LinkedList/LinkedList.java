@@ -95,6 +95,8 @@ public class LinkedList {
             throw new IllegalArgumentException("Lista vazia.");
         }
 
+        // To remove an element on the beginning is just rearrange the reference to first element as the next (proximo)
+        // This way, the second element is now the first.
         this.primeira = this.primeira.getProximo();
         this.totalDeElementos--;
 
