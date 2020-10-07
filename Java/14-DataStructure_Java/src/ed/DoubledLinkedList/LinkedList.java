@@ -2,24 +2,23 @@ package ed.DoubledLinkedList;
 
 public class LinkedList {
 
-    // Store the first item of the lista
     private Celula primeira = null;
-    // Store the last item of the list
     private Celula ultima = null;
     private int totalDeElementos;
 
     public void adicionaNoComeco(Object elemento) {
 
-        // NOTE Add items in the begining of the list
-        // When adding on the beginning we must set the primeiro as the new celula we're
-        // adding.
-        Celula nova = new Celula(elemento, primeira);
-        this.primeira = nova;
-
-        // If this new celula is the first it's also the first (primeiro) and last
-        // (ultimo) item on the list.
         if (this.totalDeElementos == 0) {
-            this.ultima = this.primeira;
+            Celula nova = new Celula(elemento);
+            // When is the fisrt element, it is the first and the last at the same time.
+            this.primeira = nova;
+            this.ultima = nova;
+        } else {
+            // When it is not the fisrt we need to set the actual element as the next of the new element,
+            // and the new element as the previous element of the actual element.
+            Celula nova = new Celula(elemento, this.primeira);
+            this.primeira.setAnterior(nova);
+            this.primeira = nova;
         }
 
         this.totalDeElementos++;
@@ -27,23 +26,16 @@ public class LinkedList {
 
     public void adiciona(Object elemento) {
 
-        // NOTE Add items in the end of the list
-        // If it is the first element just add on the beginning
         if (this.totalDeElementos == 0) {
             adicionaNoComeco(elemento);
         } else {
-            // Here we create a new cell with proximo is null because, when adding at the
-            // end, there is no next.
-            Celula nova = new Celula(elemento, null);
-            // Now we set this new element as the next element of the prior one, which was
-            // the last before adding this new
+            // Now we have to set the prior too.
+            Celula nova = new Celula(elemento);
             this.ultima.setProximo(nova);
-            // And here we set the new element as the last element of the list.
+            nova.setAnterior(this.ultima);
             this.ultima = nova;
+            this.totalDeElementos++;
         }
-
-        this.totalDeElementos++;
-
     }
 
     private boolean posicaoOcupada(int posicao) {
@@ -66,19 +58,25 @@ public class LinkedList {
 
     public void adiciona(int posicao, Object elemento) {
 
-        // NOTE Inserting an element in the middle of the list
         if (posicao == 0) {
             adicionaNoComeco(elemento);
         } else if (posicao == totalDeElementos) {
             adiciona(elemento);
         } else {
-            // The logic here is: take the prior element of the position you want to add
+
+            // Here we're inserting an element between 2 elements of the list. So we have to:
+                // set the new element next to the next element of the previous one.
+                // set the new element prior to the prior element
+                // set the prior element next to the new element
+                // set the next element prior to the new element.
             Celula anterior = this.pegaCelula(posicao - 1);
-            // Create the new celula setting the next (proximo) as the same next of the
-            // prior element
             Celula nova = new Celula(elemento, anterior.getProximo());
-            // Set the next (proximo) element of the prior element as the new element.
+            Celula proxima = anterior.getProximo();
+
+            nova.setProximo(anterior.getProximo());
+            nova.setAnterior(anterior);
             anterior.setProximo(nova);
+            proxima.setAnterior(nova);
 
             this.totalDeElementos++;
         }
@@ -95,8 +93,6 @@ public class LinkedList {
             throw new IllegalArgumentException("Lista vazia.");
         }
 
-        // To remove an element on the beginning is just rearrange the reference to first element as the next (proximo)
-        // This way, the second element is now the first.
         this.primeira = this.primeira.getProximo();
         this.totalDeElementos--;
 
@@ -106,13 +102,39 @@ public class LinkedList {
     }
 
     public void remove(int posicao) {
+        if (this.totalDeElementos == 1) {
+            removeDoComeco();
+        } else if (posicao == this.totalDeElementos - 1) {
+            removeDofim();
+        } else {
 
-        // Celula anterior = pegaCelula(posicao - 1);
-        // Celula atual = pegaCelula(posicao);
-        // anterior.setProximo(atual.getProximo());
+            // To remove an element in a certain position we just need to adjust where the prior element next and
+            // and the next element prior is pointing
+            // Prior element next should pointing to actual element next
+            // Next element prior should pointing to actual element prior
+            Celula atual = this.pegaCelula(posicao);
+            Celula anterior = atual.getAnterior();
+            Celula proxima = atual.getProximo();
 
-        // totalDeElementos--;
+            anterior.setProximo(atual.getProximo());
+            proxima.setAnterior(atual.getAnterior());
 
+            this.totalDeElementos--;
+        }
+
+    }
+
+    public void removeDofim() {
+        if (this.totalDeElementos == 1) {
+            this.removeDoComeco();
+        } else {
+            Celula penultima = this.ultima.getAnterior();
+
+            penultima.setProximo(null);
+            this.ultima = penultima;
+
+            this.totalDeElementos--;
+        }
     }
 
     public int tamanho() {
@@ -120,7 +142,16 @@ public class LinkedList {
         return this.totalDeElementos;
     }
 
-    public boolean contem(Object obj) {
+    public boolean contem(Object elemento) {
+
+        Celula atual = this.primeira;
+
+        while (atual != null) {
+            if (atual.getElemento().equals(elemento)) {
+                return true;
+            }
+            atual = atual.getProximo();
+        }
 
         return false;
     }
