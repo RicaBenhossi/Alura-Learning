@@ -9,10 +9,6 @@
 	// You can edit these settings after create using File > Preferences > Settings > Remote.
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
-		"python.pythonPath": "/usr/local/bin/python",
-		"python.linting.enabled": true,
-		"python.linting.pylintEnabled": true,
-		"python.linting.pylintPath": "/usr/local/bin/pylint",
 
 		// USER
 		"editor.matchBrackets": "near",
@@ -67,12 +63,17 @@
 		},
 
 		//PYTHON
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.linting.flake8Enabled": true,
+
 		"python.languageServer": "Pylance",
 		"python.insidersChannel": "on",
 		"python.autoComplete.addBrackets": true,
 		"python.dataScience.sendSelectionToInteractiveWindow": true,
 		"python.testing.pytestEnabled": true,
-		"python.linting.pylintArgs": [
+		"python.linting.flake8Args": [
 			"--max-line-length=150"
 		],
 		"python.formatting.autopep8Args": [
@@ -119,7 +120,6 @@
 				"icon": "alert",
 				"type": "line",
 				"foreground": "yellow",
-				"background": "yellow",
 				"opacity": 30,
 				"iconColour": "yellow"
 			},
@@ -127,22 +127,20 @@
 				"icon": "bug",
 				"foreground": "red",
 				"type": "line",
-				"background": "red",
 				"opacity": 20,
 				"iconColour": "red"
 			},
 			"NOTE": {
 				"icon": "note",
-				"foreground": "lightblue",
+				"foreground": "blue",
 				"type": "text",
-				"background": "",
-				"iconColour": "lightblue"
+				"background": "black",
+				"iconColour": "blue"
 			},
 			"DONE": {
 				"icon": "check",
 				"foreground": "green",
 				"type": "line",
-				"background": "green",
 				"opacity": 10,
 				"iconColour": "green"
 			}
@@ -192,6 +190,7 @@
 		"visualstudioexptteam.vscodeintellicode",
 		"wakatime.vscode-wakatime",
 		"almenon.arepl",
-		"ms-python.vscode-pylance"
+		"ms-python.vscode-pylance",
+		"donjayamanne.python-extension-pack"
 	]
 }
