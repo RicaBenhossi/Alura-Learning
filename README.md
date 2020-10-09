@@ -34,3 +34,8 @@ Every change on readme or gitignore files must be done on branch branch_base. Af
 - 12-JavaJPA_Part01
 - 13-JavaJpa_part02
 - 14-DataStructure_Java
+
+### PYTHON
+
+- python_base
+- 01-DataStructure_Python
