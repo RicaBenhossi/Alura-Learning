@@ -3,6 +3,7 @@
 execute_command(){
     command_to_execute=$1
     $command_to_execute
+    sleep 1
     error=$?
     if [[ $error -ne 0 ]]; then
         echo
@@ -182,7 +183,6 @@ create_tasks_json(){
     fi
 }
 
-
 merge_new_branch_to_main(){
     branch_name=$1
     echo >&2
@@ -229,7 +229,6 @@ base_branch_name=$(get_base_branch)
 create_new_branch $course_branch_name $base_branch_name
 
 course_main_folder_name=$(ls -d */)
-echo $course_main_folder_name
 
 create_tasks_json $course_branch_name $course_main_folder_name
 
