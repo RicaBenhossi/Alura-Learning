@@ -119,6 +119,15 @@ get_base_branch(){
     echo $container_branch_name
 }
 
+merge_branch_base() {
+    branch_base_name=$1
+    default_base_branch="branch_base"
+    echo "Merging $default_base_branch into $branch_base_name">&2
+    echo >&2
+    execute_command "git merge $default_base_branch $branch_base_name"
+    echo >&2
+
+}
 create_new_branch(){
     echo >&2
     echo "------------------------------------------------------------" >&2
@@ -127,6 +136,10 @@ create_new_branch(){
     echo >&2
     course_branch=$1
     base_branch=$2
+    merge_branch_base $base_branch
+    echo >&2
+    echo "Creating the new branch " >&2
+    echo >&2
     execute_command "git checkout -b $course_branch $base_branch"
     echo >&2
     echo "** Branch $course_branch_name created. **" >&2
