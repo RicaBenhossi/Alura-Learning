@@ -229,6 +229,7 @@ base_branch_name=$(get_base_branch)
 create_new_branch $course_branch_name $base_branch_name
 
 course_main_folder_name=$(ls -d */)
+echo $course_main_folder_name
 
 create_tasks_json $course_branch_name $course_main_folder_name
 
