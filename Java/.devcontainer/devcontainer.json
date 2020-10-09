@@ -86,7 +86,6 @@
 				"icon": "alert",
 				"type": "line",
 				"foreground": "yellow",
-				"background": "yellow",
 				"opacity": 30,
 				"iconColour": "yellow"
 			},
@@ -94,22 +93,20 @@
 				"icon": "bug",
 				"foreground": "red",
 				"type": "line",
-				"background": "red",
 				"opacity": 20,
 				"iconColour": "red"
 			},
 			"NOTE": {
 				"icon": "note",
-				"foreground": "lightblue",
+				"foreground": "blue",
 				"type": "text",
-				"background": "",
-				"iconColour": "lightblue"
+				"background": "black",
+				"iconColour": "blue"
 			},
 			"DONE": {
 				"icon": "check",
 				"foreground": "green",
 				"type": "line",
-				"background": "green",
 				"opacity": 10,
 				"iconColour": "green"
 			}
