@@ -3,7 +3,7 @@
 execute_command(){
     command_to_execute=$1
     $command_to_execute
-    sleep 1
+    wait
     error=$?
     if [[ $error -ne 0 ]]; then
         echo
@@ -125,7 +125,8 @@ merge_branch_base() {
     default_base_branch="branch_base"
     echo "Merging $default_base_branch into $branch_base_name">&2
     echo >&2
-    execute_command "git merge $default_base_branch $branch_base_name"
+    execute_command "git checkout $branch_base_name"
+    execute_command "git merge $default_base_branch"
     echo >&2
 
 }
