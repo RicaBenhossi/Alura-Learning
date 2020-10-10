@@ -125,7 +125,10 @@ merge_branch_base() {
     default_base_branch="branch_base"
     echo "Merging $default_base_branch into $branch_base_name">&2
     echo >&2
+    execute_command "git checkout $default_base_branch"
+    execute_command "git pull origin"
     execute_command "git checkout $branch_base_name"
+    execute_command "git pull origin"
     execute_command "git merge $default_base_branch"
     echo >&2
 
@@ -143,7 +146,7 @@ create_new_branch(){
     echo >&2
     echo "Creating the new branch " >&2
     echo >&2
-    execute_command "git checkout -b $course_branch $base_branch"
+    execute_command "git checkout -b $course_branch"
     echo >&2
     echo "** Branch $course_branch_name created. **" >&2
     echo >&2
