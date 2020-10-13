@@ -50,7 +50,7 @@ RUN apt-get update \
 
 # PIP
 RUN pip install --upgrade pip \
-    && pip install flake8 ipykernel pep8
+    && pip install flake8 ipykernel pep8 autopep8
 
 RUN export PATH=/home/benhossi/.local/bin:$PATH
 
