@@ -133,10 +133,10 @@
 			},
 			"NOTE": {
 				"icon": "note",
-				"foreground": "blue",
+				"foreground": "grey",
 				"type": "text",
 				"background": "black",
-				"iconColour": "blue"
+				"iconColour": "grey"
 			},
 			"DONE": {
 				"icon": "check",
