@@ -70,7 +70,7 @@ class DoublyLinkedList:
             print(current.content)
             current = current.next
 
-    def item(self, position):
+    def item(self, position: int):
         cell = self._cell(position)
         return cell.content
 

@@ -1,80 +1,80 @@
-from ed.linked_list import ListaLigada
+from ds.linked_list import Linked_List
 
 
-class Loja:
-    def __init__(self, nome, endereco) -> None:
-        self.nome = nome
-        self.endereco = endereco
+class Store:
+    def __init__(self, name, address) -> None:
+        self.name = name
+        self.address = address
 
     def __repr__(self) -> str:
-        return "{}\n {}".format(self.nome, self.endereco)
+        return '{}\n {}'.format(self.name, self.address)
 
 
-def show_result(lista: ListaLigada) -> None:
+def show_result(lnk_list: Linked_List) -> None:
     print()
-    print("Whole list")
-    lista.imprimir()
-    print(f"Amount of store listed: {lista.quantidade}")
+    print('Whole list')
+    lnk_list.print_list()
+    print(f'Amount of store listed: {lnk_list.quantity}')
     print()
-    print("-" * 80)
+    print('-' * 80)
     print()
 
 
 def main():
-    loja1 = Loja("Mercadinho", "Rua das Laranjeiras, 12")
-    loja2 = Loja("Horti Fruti", "Rua do Pomar, 300")
-    loja3 = Loja("Padaria", "Rua das Flores, 600")
-    loja4 = Loja("Supermercado", "Alameda Santos, 400")
-    loja5 = Loja("Mini Mercado", "Rua da Fazenda, 900")
-    loja6 = Loja("Quitanda", "Avenida Rio Branco, 34")
+    store1 = Store('Mercadinho', 'Rua das Laranjeiras, 12')
+    store2 = Store('Horti Fruti', 'Rua do Pomar, 300')
+    store3 = Store('Padaria', 'Rua das Flores, 600')
+    store4 = Store('Supermercado', 'Alameda Santos, 400')
+    store5 = Store('Mini Mercado', 'Rua da Fazenda, 900')
+    store6 = Store('Quitanda', 'Avenida Rio Branco, 34')
 
-    lista = ListaLigada()
+    lnk_list = Linked_List()
 
-    print("Inserting on begining")
-    lista.inserir_no_inicio(loja1)
-    lista.inserir_no_inicio(loja2)
-    lista.inserir_no_inicio(loja3)
+    print('Inserting at begining')
+    lnk_list.insert_at_beginning(store1)
+    lnk_list.insert_at_beginning(store2)
+    lnk_list.insert_at_beginning(store3)
 
-    show_result(lista)
+    show_result(lnk_list)
 
-    print("Insert in a position")
-    lista.inserir(1, loja4)
-    lista.inserir(0, loja5)
-    lista.inserir(lista.quantidade, loja6)
-    print("Inserted on position 1, 0 and 6")
+    print('Insert in a position')
+    lnk_list.insert(1, store4)
+    lnk_list.insert(0, store5)
+    lnk_list.insert(lnk_list.quantity, store6)
+    print('Inserted on position 1, 0 and 6')
     # Should be:
-    # loja5
-    # loja4
-    # loja1
-    # loja2
-    # loja3
-    # loja6
+    # store5
+    # store4
+    # store1
+    # store2
+    # store3
+    # store6
 
-    show_result(lista)
+    show_result(lnk_list)
 
-    print("Remove from begining")
-    removed_item = lista.remove_do_inicio()
-    print(f"Removed item {removed_item}")
+    print('Remove from begining')
+    removed_item = lnk_list.remove_from_beginning()
+    print(f'Removed item {removed_item}')
     print()
-    removed_item = lista.remove_do_inicio()
-    print(f"Removed item {removed_item}")
+    removed_item = lnk_list.remove_from_beginning()
+    print(f'Removed item {removed_item}')
 
-    show_result(lista)
+    show_result(lnk_list)
 
-    print("Remove from any position")
-    loja_removed_position = lista.remove(2)
-    print(f"Store of position 2 (removed) is\n{loja_removed_position}")
+    print('Remove from any position')
+    store_removed_position = lnk_list.remove(2)
+    print(f'Store of position 2 (removed) is\n{store_removed_position}')
 
-    show_result(lista)
+    show_result(lnk_list)
 
-    print("Remove from position 0")
-    removed_item = lista.remove(0)
-    print(f"Removed store on position 0: {removed_item}")
+    print('Remove from position 0')
+    removed_item = lnk_list.remove(0)
+    print(f'Removed store on position 0: {removed_item}')
 
-    show_result(lista)
+    show_result(lnk_list)
 
-    print("Getting the store located by index 1")
-    store_index = lista.item(1)
+    print('Getting the store located by index 1')
+    store_index = lnk_list.item(1)
     print(store_index)
 
     # the class tha implements linked lists in python is LIST

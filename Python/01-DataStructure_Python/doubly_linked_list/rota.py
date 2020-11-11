@@ -1,4 +1,4 @@
-from ed.doubly_linked_list import DoublyLinkedList
+from ds.doubly_linked_list import DoublyLinkedList
 
 
 class Store:
@@ -28,7 +28,6 @@ def main():
     store05 = Store("Mercado", "Rua das Flores, 15")
     store06 = Store("Quitanda", "Rua da Fazenda, 16")
     store07 = Store("Mercado das Frutas", "Rua do Laranjal, 17")
-    store08 = Store("Varejão Vegano", "Rua do limoeiro, 18")
 
     dl_list = DoublyLinkedList()
     show_result(dl_list)
