@@ -1,4 +1,4 @@
-from ds.doubly_linked_list import DoublyLinkedList
+from data_structure.doubly_linked_list import DoublyLinkedList
 
 
 class Store:

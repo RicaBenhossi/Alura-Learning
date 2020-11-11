@@ -1,4 +1,4 @@
-from ds.linked_list import Linked_List
+from data_structure.linked_list import LinkedList
 
 
 class Store:
@@ -10,7 +10,7 @@ class Store:
         return '{}\n {}'.format(self.name, self.address)
 
 
-def show_result(lnk_list: Linked_List) -> None:
+def show_result(lnk_list: LinkedList) -> None:
     print()
     print('Whole list')
     lnk_list.print_list()
@@ -28,7 +28,7 @@ def main():
     store5 = Store('Mini Mercado', 'Rua da Fazenda, 900')
     store6 = Store('Quitanda', 'Avenida Rio Branco, 34')
 
-    lnk_list = Linked_List()
+    lnk_list = LinkedList()
 
     print('Inserting at begining')
     lnk_list.insert_at_beginning(store1)

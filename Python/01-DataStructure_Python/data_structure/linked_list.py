@@ -5,7 +5,7 @@ class Cell:
         self.next = None
 
 
-class Linked_List:
+class LinkedList:
 
     def __init__(self) -> None:
         self._start = None
