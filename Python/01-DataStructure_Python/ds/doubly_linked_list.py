@@ -117,7 +117,7 @@ class DoublyLinkedList:
 
     def remove_from_start(self):
         if self.quantity == 1:
-            self._remove_last()
+            return self._remove_last()
 
         removed_cell = self.start
         self._start = removed_cell.next
