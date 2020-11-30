@@ -11,10 +11,11 @@ Every change on readme or gitignore files must be done on branch branch_base. Af
 
 ## Creating a new Course branch
 
-1. Add the new branch name to README.md file.
-2. Go to branch MAIN
-3. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
-4. You're done...
+1. Go to branch named branch_base
+2. Add the new branch name to README.md file.
+3. Go to branch MAIN
+4. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
+5. You're done...
 
 ## Branch List
 
@@ -39,3 +40,7 @@ Every change on readme or gitignore files must be done on branch branch_base. Af
 
 - python_base
 - 01-DataStructure_Python
+
+### Git and GitHub
+
+- 01-Git_Github
