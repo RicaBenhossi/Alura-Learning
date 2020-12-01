@@ -66,4 +66,4 @@ python (folder)
 
 ### Git and GitHub
 
-- 01-Git_Github
+- 01-Git_GitHub
