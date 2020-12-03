@@ -36,6 +36,13 @@ Git workflow to consolidate your changes to HEAD, is:
 - git init
   This command initialize the current folder as a git repository to git start tracking it.
 
+- git init --bare
+  This command do the same as git init but it creates a repository that will cointaisn only the changes of the files and not a copy of the files it self.
+  It means that we won't use it to access and change files. It is just to store the changes. It's used to create remte repositories.
+
+- git remote
+  It lists all the remote repositories of the repo you're in. Will show blank if there is none.
+
 - git add
   This command add the files to the stage area. This area holds the files selected to be commited
   E.g.:
@@ -58,3 +65,22 @@ Git workflow to consolidate your changes to HEAD, is:
   In these, file you just add the the files and folder (using / at the end) that you don't want git tracks.
   So now, if you type git status, git won't show you to commit the files or folders you setto ignore.
   Altough git won't track these files, it will show you to commit the .gitignore file.
+
+- git remote add
+  This command adds a remote repository to your local repository
+  - the command should have a name and the address of the remote repository (URL, lan address, local).
+    E. g.: git remote add name_remote https://remote_repo.com.br/address.
+
+- git push
+  This command pushes your changes to the remote server you configure as remote
+  E.g.: git push remote_name_you_gave_when_add_remote branch_you_want_to_push
+
+- git pull
+  This command gets the data of the remote repositori and brings to your local branches
+  * By default, when you clone a remote repository, git name it remote as ORIGIN. To change it use git remote rename old_name new_name
+  E.g.: git pull remote_repository_name branch_name (optional)
+
+- git clone
+  Used to make a copy of the remote repository you want
+  E.g.: git clone https://remote_repo.com.br/address folder_name_you_want_create (optional)
+
