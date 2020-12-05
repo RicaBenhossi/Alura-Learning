@@ -17,7 +17,26 @@ Git workflow to consolidate your changes to HEAD, is:
   2. add the file(s) to stage area (git add)
   3. commit these changes (git commit)
 
+## Branches
 
+Git allows you to create branches to split the work you've to do. Usualy the main branch, that will contains all the consolidated changes is MASTER.
+When you create a branch, git will create another line, as the follow exemple:
+
+master -------------
+(HEAD)     |
+          branch01 -------
+                      |
+                    branch01.1 ---------
+
+In this case, the changes you do on the other branches (branch01 and branch01.1), will not be in master and vice versa.
+See the commands to work with branches on line 99.
+
+It is very important to slpit the development in branches. This way what a Developer01 is working on (on branch feature01) does not affect the changes
+Developer02 is doing on branch feature02. Both branches are isolated and the changes will not overwrite it selves.
+
+When the feature developed on feature01 is done, you join it on branch master using the command git merge.
+
+ - **HEAD**: the HEAD shows where your repository is. It will be always the last commit you did.
 ### Conventions
 
 - Commit
@@ -83,4 +102,28 @@ Git workflow to consolidate your changes to HEAD, is:
 - git clone
   Used to make a copy of the remote repository you want
   E.g.: git clone https://remote_repo.com.br/address folder_name_you_want_create (optional)
+
+- git branch commands
+  - git branch
+    List all the branches you have on your repository.
+  - git branch branch_name
+    Create a new branch with the name you gave it on branch_name
+  - git switch branch_name or git checkout branch_name
+    Change the repository you're working on to the branch_name repository
+  - git checkout <u>**-b**</u> branch_name
+    Creates a new branch and change to the new branch.
+
+- git merge
+  This command take one branch and put it inside another.
+  E.g.: git branch01 branch02
+  For exemple: you finished a feature on branch new_module and need to put these changes on branch master.
+  So you checkout to the branch you want merge new_module into (master) and there you execute the following command:
+  git merge master new_module
+
+
+- git rebase
+  This command takes the commits of the branch origin and put behind on the branch you you're rebasing.
+  **BE CAREFUL**: could male you lose work.
+  - command: git rebase branch_name -> it will bring branch_name commits to be the base of the branch you're in.
+
 
