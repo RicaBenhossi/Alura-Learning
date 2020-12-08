@@ -17,6 +17,7 @@ Git workflow to consolidate your changes to HEAD, is:
   2. add the file(s) to stage area (git add)
   3. commit these changes (git commit)
 
+You can literally see how git works using https://git-school.github.io/visualizing-git/.
 ## Branches
 
 Git allows you to create branches to split the work you've to do. Usualy the main branch, that will contains all the consolidated changes is MASTER.
@@ -78,6 +79,10 @@ When the feature developed on feature01 is done, you join it on branch master us
 
 - git log
   Shows you all the history that already occured in your repository. See http://devhints.io/git-log to have some tips and how to use it.
+  - git log --oneline
+    Shows you a simplified log with short has and message of the commit.
+  - git log -n X
+    Shows you the last X commits
 
 - .gitignore (file)
   You can make Git to ignore some file or folders. You just need to add a special file named .gitignore to your project.
@@ -126,4 +131,53 @@ When the feature developed on feature01 is done, you join it on branch master us
   **BE CAREFUL**: could male you lose work.
   - command: git rebase branch_name -> it will bring branch_name commits to be the base of the branch you're in.
 
+- undoing changes (ctrl + Z)
+  - reverting what is in the working tree (not staged or commited):
+    **git checkout -- file_name**
+  - reverting what you've already add to stage:
+    **git reset HEAD** You can use an specific commit instead of HEAD
+  - reverting whatyou already have commited:
+    **git revert commit_hash**
 
+- git stash
+  Git Stash will "save" your changes in a temporary stack (aside the main stack of your project) and won't show it in your git log.
+  - **git stash**
+    This command will "commit" your changes to the stash area. You can set a message to this stasj. Just type it after the word stash
+  - **git stash list**
+    This command will list all you have on stash area by a number into {}
+  - **git stash apply**
+    This command will restore the last thing you stashed. You can apply a specific stash by informing the stash number (see git statsh list).
+  - **git stash drop**
+    This command will discard the last thing you stashed. You can drop a specific stash by informing the stash number (see git statsh list).
+  - **git pop**
+    This command will execute a stash apply followed by a stash drop. You can use it to restore a specific stash by informing the stash number (see git statsh list).
+
+- Navigate through commits
+  Using Git, you can navigate through commits an restore you project to an specific commit.
+  - **git checkout commit_hash**
+    By using this command you set HEAD of your project to the commit you want.
+    **OBS:** when use git checkout commit_hash, you are **deatached** of the main source control. That is, you're not in any branch.
+    So, if you make a commit here and change to MASTER, these commits will be lost and you couldn't retrive in in the future.
+    If you want to make these commit achieveble, you have to **create a new branch** after moving ead to the commit you want.
+    - **git checkout -b new_branch**
+      This way, this new_branch is based on the commit you've checkout out before.
+
+- git diff
+  This command is used to see the changes between 2 commits or a commit and working tree
+  - **git diff**
+    This command will show the differences between the last commit and your unstaged changes. If you stage it, it won't show anything.
+  - **git diff old_hash_commit..new_hash_commit**
+    Here we can see the differences between 2 commits. The .. can be translate as until. So, by using this command, you're able to see all
+    the changes occured bewteen these commits. You can also use only **git diff old_hash_commit** to compare with HEAD.
+
+- git tag
+  You can create a tag, a mark on the history of your project for a version release for exemple
+  - **git tag -a tag_name**
+    This command will create a tag in HEAD. You can also set a message to this tag using -m 'message'.
+    You can create a tag on a specific commit to.
+    When you use github, these tag will apperar in RELEASE and can be downloaded.
+  - **git push origin tag_name**
+    This command will push your tags to the remote server.
+  - **git tag**
+    This commnand lists all the tags you have.
+  - You can also checkout your project to a specific tag. Use **git checkout tag_name** to do it.
