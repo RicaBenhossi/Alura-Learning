@@ -122,14 +122,16 @@ get_base_branch(){
 
 merge_branch_base() {
     branch_base_name=$1
-    default_base_branch="branch_base"
-    echo "Merging $default_base_branch into $branch_base_name">&2
+    branch_master="master"
+    echo "Chekouting files from $branch_master $branch_base_name">&2
     echo >&2
-    execute_command "git checkout $default_base_branch"
-    execute_command "git pull origin"
+    # execute_command "git checkout $branch_master"
+    # execute_command "git pull origin"
     execute_command "git checkout $branch_base_name"
     execute_command "git pull origin"
-    execute_command "git merge $default_base_branch"
+    # execute_command "git merge $branch_master"
+    execute_command "git checkout $branch_master LICENSE README.md .gitignore"
+    execute_command "git commit -m 'Adding files LICENSE README.md .gitignore"
     echo >&2
 
 }
