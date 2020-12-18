@@ -3,34 +3,55 @@
 This repo contains all the notes, codes and exercises of my Alura Courses
 
 Every course has a specific branch. You have to switch to the branch of the course you want to see.
-Every change on dockerfile or devcontainer.json should be done on branch Container of the project/language and commited.
-After that you must switcht to the course/project branch and CHECKOUT it to the branche (git checkout Container .devcontainer/).
-Otherwise, some files can be deleted.
-** Every language course must, if possible, have it's own container.
-Every change on readme or gitignore files must be done on branch branch_base. After commit it, it must be merged to the project/course branch
+
+Every course branch has 2 basic branches:
+1. language_base
+  - that is created based on branch_base
+  - the name should follow the deault languagename_base
+2. course branch
+ - the criation of these branch will be done running the file "new_corse_branch.sh"
 
 ## Creating a new Course branch
 
-1. Add the new branch name to README.md file.
-2. Go to branch MAIN
-3. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
-4. You're done...
+1. Go to branch named branch_base
+2. Add the new course branch name to README.md file on section BRANCH LIST.
+3. Commit these changes on this branch.
+4. Create a new branch based on branch_base. This branch will be the base of the new course branch
+  - The name of this branch should follow the pattern language-name_base (e.g: python_base)
+  Every change on readme or gitignore files must be done on branch branch_base. After commit it, it must be merged to the project/course branch
+5. Create a default folder in the course branch base using the main language name of the course
+  - if you'll use a docker container to run vscode, the .devcontainer folder should be add inside this folder
+  ** Every language course should, if possible, have it's own container (one container per language).
+6. Go to branch MAIN
+7. Execute the file "new_corse_branch.sh" on terminal and follow it's instructions.
+8. You're done...
 
+- ** Every change on dockerfile or devcontainer.json should be done on branch named language-name_base of the project/language
+  - After the changes being commited, you must merge it into the course/project branch you are wirking (or the other ones you want).
+
+The folder structure will be as the following exemple:
+
+- Python courses
+
+python (folder)
+  |-- .devcontainer (if it runs inside a docker container)
+  |-- 01-course (folder)
+        |-- .vscode (folder)
+              |-- tasks.json
+        | Files/Folders of the course.
+  |-- 02-course
 ## Branch List
 
 ### JAVA
 
-- ContainerJava
-- 01-JavaPart01
-- 02-03-JavaPart02-03-Heranca_Interfaces
-- 04-JavaPart04-Exceptions
-- 05-JavaPart05-Packages
-- 06-JavaPart06-Java.Utils
-- 07-JavaPart07.IO
-- 08-Collections
-- 09-JavaMaven
-- 10-JavaServletsPart01
-- 11-JavaServletsPart02
-- 12-JavaJPA_Part01
-- 13-JavaJpa_part02
-- 14-DataStructure_Java
+- java_base
+- 11-DataStructure_Java
+
+### PYTHON
+
+- python_base
+- 01-DataStructure_Python
+
+### Git and GitHub
+
+- 01-Git_GitHub
