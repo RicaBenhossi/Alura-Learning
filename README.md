@@ -45,19 +45,7 @@ python (folder)
 ### JAVA
 
 - java_base
-- 01-JavaPart01
-- 02-03-JavaPart02-03-Heranca_Interfaces
-- 04-JavaPart04-Exceptions
-- 05-JavaPart05-Packages
-- 06-JavaPart06-Java.Utils
-- 07-JavaPart07.IO
-- 08-Collections
-- 09-JavaMaven
-- 10-JavaServletsPart01
-- 11-JavaServletsPart02
-- 12-JavaJPA_Part01
-- 13-JavaJpa_part02
-- 14-DataStructure_Java
+- 11-DataStructure_Java
 
 ### PYTHON
 
