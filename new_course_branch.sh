@@ -125,28 +125,23 @@ merge_branch_base() {
     branch_master="master"
     echo "Chekouting files from $branch_master $branch_base_name">&2
     echo >&2
-    # execute_command "git checkout $branch_master"
-    # execute_command "git pull origin"
     execute_command "git checkout $branch_base_name"
     execute_command "git pull origin"
-    # execute_command "git merge $branch_master"
     execute_command "git checkout $branch_master LICENSE README.md .gitignore"
-    execute_command "git add ."
-    execute_command "git commit -m 'Adding files LICENSE README.md .gitignore"
+    commit_branch "Adding files LICENSE, README.md and .gitignore"
     execute_command "git push origin $branch_base_name"
-    execute_command "git commit -m 'Adding files LICENSE README.md .gitignore"
-    echo >&2
 
+    echo >&2
 }
 
 create_new_branch(){
+    course_branch=$1
+    base_branch=$2
     echo >&2
     echo "------------------------------------------------------------" >&2
     echo >&2
-    echo "Creating a new course branch based on $base_branch_name" >&2
+    echo "Creating a new course branch based on $base_branch" >&2
     echo >&2
-    course_branch=$1
-    base_branch=$2
     merge_branch_base $base_branch
     echo >&2
     echo "Creating the new branch " >&2
