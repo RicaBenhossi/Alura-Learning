@@ -131,13 +131,10 @@ merge_branch_base() {
     execute_command "git pull origin"
     # execute_command "git merge $branch_master"
     execute_command "git checkout $branch_master LICENSE README.md .gitignore"
-<<<<<<< HEAD
     execute_command "git add ."
     execute_command "git commit -m 'Adding files LICENSE README.md .gitignore"
     execute_command "git push origin $branch_base_name"
-=======
     execute_command "git commit -m 'Adding files LICENSE README.md .gitignore"
->>>>>>> 0567b65668db691803e991f3e04e2548d222ab57
     echo >&2
 
 }
