@@ -6,6 +6,7 @@ bin-release/
 
 # Other files and folders
 .settings/
+.metadata/
 
 # Executables
 *.swf
@@ -13,3 +14,4 @@ bin-release/
 *.ipa
 *.apk
 *.war
+*.class
