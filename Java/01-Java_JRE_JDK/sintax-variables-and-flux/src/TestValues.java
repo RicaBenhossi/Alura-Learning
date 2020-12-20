@@ -1,0 +1,12 @@
+
+public class TestValues {
+	public static void main(String[] args) {
+		int first = 5;
+		int second = 7;		
+//		in primitive types, Java store the value, not the references.
+		second = first;
+		first = 10;
+		
+		System.out.println(second);
+	}
+}
