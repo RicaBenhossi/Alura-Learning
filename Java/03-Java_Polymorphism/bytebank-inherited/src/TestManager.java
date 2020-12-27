@@ -16,6 +16,8 @@ public class TestManager {
 		boolean authenticated = manager01.authenticate(222);
 		System.out.println(authenticated);
 		
+		System.out.println(manager01.getBonus());
+		
 	}
 
 }

@@ -9,7 +9,7 @@ public class TestEmployee {
 		employee.setCpf("23423423419");
 		
 		System.out.println(employee.getName());
-		System.out.println(employee.getBonification());
+		System.out.println(employee.getBonus());
 	}
 
 }

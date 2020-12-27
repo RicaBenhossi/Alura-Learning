@@ -3,9 +3,18 @@ public class Employee {
 	
 	private String name;
 	private String cpf;
-	private double salary;
+//	Visibilities:
+//	Private means that only instances of this class can change/sees this attribute.
+//	Public means that everyone can change/sees this attribute directly.
+//  Protected. It does the same as PRIVATE, but allows classes that extends from this class to use it.
+//	protected double salary;
 	
-	public double getBonification() {
+//	Although PROTECTED make this attribute visible on the heirs, is recommended that we keep the attribute as PRIVATE.
+//	if the heir needs to access these attribute, use the method GET with SUPER.
+	private double salary; 
+	
+	
+	public double getBonus() {
 		return this.salary * 0.1;
 	}
 	
