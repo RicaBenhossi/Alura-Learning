@@ -15,7 +15,7 @@ public class Employee {
 	
 	
 	public double getBonus() {
-		return this.salary * 0.1;
+		return this.salary * 0.05;
 	}
 	
 	public String getName() {
