@@ -5,4 +5,14 @@ public class SavingAccount extends BankAccount {
 		super(agency, accountNumber);
 	}
 
+//	@Override
+//	public void deposit(double value) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	
+	@Override
+	public void deposit(double value) {
+		super.balance += value;
+	}
 }

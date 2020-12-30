@@ -1,24 +1,13 @@
 // To set heritage  use the word 'extends'. It means that the class  MANAGER will extend the class Employee
-// Employee is teh mother class or base class or SUPER Class
-public class Manager extends Employee{
-	
-	private int password;
-	
-	
-	public boolean authenticate(int password) {
-		if (this.password != password) {
-			return false;
-		}
-		return true;
-	}
-	
-	public void setPassword(int password) {
-		this.password = password;
-	}
+// Employee is the mother class or base class or SUPER Class
+
+// Now, manager will sing the contract (interface) Authenticable. We can implements more than one interface (implements Auth, Bonus, ...)
+public class Manager extends Employee implements Authenticable{
 	
 //	As we extended Manager from Employee, salary can not be accessed with "this" because "this" is to Employee class
 //	To use this field, we must change its visibility on the super class (Employee).
-//	
+	private int password;
+	
 	public double getBonus() {
 //		When the attribute belongs to the super class, exchange THIS for SUPER 
 //		return super.salary;
@@ -31,7 +20,17 @@ public class Manager extends Employee{
 //		BUT, the use of super.salary is not recommended. Although "protected" is a valid visibility, is recommended that you 
 //		always use the PRIVATE visibility to be sure that your attribute is safe. To access the salary attribute, use the
 //		GET and SUPER
-		return super.getBonus() + super.getSalary();
+		return super.getSalary();
+	}
+	
+	@Override
+	public void setPassword(int password) {
+		this.password = password;
+	}
+	
+	@Override
+	public boolean authenticated(int password) {
+		return this.password == password;
 	}
 	
 }

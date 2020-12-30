@@ -13,7 +13,7 @@ public class TestManager {
 		System.out.println(manager01.getSalary());
 		
 		manager01.setPassword(222);
-		boolean authenticated = manager01.authenticate(222);
+		boolean authenticated = manager01.authenticated(222);
 		System.out.println(authenticated);
 		
 		System.out.println(manager01.getBonus());

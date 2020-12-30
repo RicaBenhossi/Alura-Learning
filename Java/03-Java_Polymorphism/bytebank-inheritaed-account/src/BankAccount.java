@@ -1,6 +1,9 @@
 
-public class BankAccount {
-	private double balance;
+public abstract class BankAccount {
+//	Here is better to change the attribute balance to protected than create a setBalance to children access it to implements deposit.
+//  If we create a setBalance, it could be accessed by every instance of this class. 	
+//	public double balance;
+	protected double balance;
 	private int accountNumber;
 	private int agency;
 	private Client holder;
@@ -12,28 +15,6 @@ public class BankAccount {
 		this.agency = agency;
 		
 		System.out.println("Creating an account.");
-	}
-
-	public void deposit(double value) {
-		this.balance += value;
-	}
-	
-	public boolean withdraw(double value) {
-		if (this.balance >= value) {			
-			this.balance -= value;
-			return true; 
-		}
-		
-		return false; 
-	}
-	
-		public boolean transfer(double value, BankAccount destinyAccount) {
-		boolean canTransfer = this.withdraw(value);
-		if (canTransfer) {
-			destinyAccount.deposit(value);
-		}
-			
-		return canTransfer;
 	}
 
 	public double getBalance() {
@@ -76,4 +57,25 @@ public class BankAccount {
 	public static int getTotalAccounts() {
 		return totalAccounts;
 	}
+	
+	public abstract void deposit(double value);
+	
+	public boolean withdraw(double value) {
+		if (this.balance >= value) {			
+			this.balance -= value;
+			return true; 
+		}
+		
+		return false; 
+	}
+	
+	public boolean transfer(double value, BankAccount destinyAccount) {
+		boolean canTransfer = this.withdraw(value);
+		if (canTransfer) {
+			destinyAccount.deposit(value);
+		}
+			
+		return canTransfer;
+	}
+
 }

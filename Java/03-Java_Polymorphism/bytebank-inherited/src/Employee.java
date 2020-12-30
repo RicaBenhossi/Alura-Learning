@@ -1,5 +1,8 @@
-
-public class Employee {
+//The class Employee is a concept, a "mold" to build another classes. 
+//You should have a Manager, a Video Editor, a Coder, not just a Employee... Is too generic.
+//When you set a class as ABSTRACT, you can't perform NEW using this class. 
+//public class Employee {
+public abstract class Employee {
 	
 	private String name;
 	private String cpf;
@@ -12,11 +15,12 @@ public class Employee {
 //	Although PROTECTED make this attribute visible on the heirs, is recommended that we keep the attribute as PRIVATE.
 //	if the heir needs to access these attribute, use the method GET with SUPER.
 	private double salary; 
-	
-	
-	public double getBonus() {
-		return this.salary * 0.05;
-	}
+	 
+//	public double getBonus() {
+//		return this.salary * 0.05;
+//	}
+//	When we set a method as abstract, it force the children of the class to implements this method. 
+	public abstract double getBonus();
 	
 	public String getName() {
 		return this.name;
