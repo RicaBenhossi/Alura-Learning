@@ -1,5 +1,5 @@
 
-public class CurrentAccount extends BankAccount {
+public class CurrentAccount extends BankAccount implements Taxable{
 
 //	When you extends, you desn't heir the constructor. As the class BankAccount has a specific constructor and doesn'thave the default,
 //	we have to create the constructor of this class and then, access the super constructor.  
@@ -20,6 +20,11 @@ public class CurrentAccount extends BankAccount {
 	public void deposit(double value) {
 		super.balance += value;
 		
+	}
+
+	@Override
+	public double getTaxValue() {
+		return super.balance * 0.01;
 	}
 	
 	

@@ -6,7 +6,7 @@ public class Manager extends Employee implements Authenticable{
 	
 //	As we extended Manager from Employee, salary can not be accessed with "this" because "this" is to Employee class
 //	To use this field, we must change its visibility on the super class (Employee).
-	private int password;
+//	private int password;
 	
 	public double getBonus() {
 //		When the attribute belongs to the super class, exchange THIS for SUPER 
@@ -23,14 +23,35 @@ public class Manager extends Employee implements Authenticable{
 		return super.getSalary();
 	}
 	
+	
+// All this code has been transfered to AuthenticationTool. This avoid duplicate code along the classes.
+//	@Override
+//	public void setPassword(int password) {
+//		this.password = password;
+//	}
+//	
+//	@Override
+//	public boolean authenticated(int password) {
+//		return this.password == password;
+//	}
+// To use composition we instance AuthenticationTool in the constructor. It will be responsable to manage, store and validate password.
+	
+	private AuthenticationTool authenticator;
+	
+	public Manager() {
+		this.authenticator = new AuthenticationTool();
+
+	}
+	
 	@Override
 	public void setPassword(int password) {
-		this.password = password;
+		this.authenticator.setPasswod(password);
+	
 	}
 	
 	@Override
 	public boolean authenticated(int password) {
-		return this.password == password;
+		return this.authenticator.authenticated(password);
+		
 	}
-	
 }
