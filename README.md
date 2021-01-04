@@ -48,6 +48,7 @@ python (folder)
 - 01-Java_JRE_JDK
 - 02-Java_OO
 - 03-Java_Polymorphism
+- 04-Java_Exceptions
 - 11-DataStructure_Java
 - 12-JavaJPA_Part01
 - 13-JavaJpa_part02
