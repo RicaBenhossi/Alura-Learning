@@ -1,0 +1,10 @@
+Access Modifiers or Visibility
+
+- Public: can be accessed every where
+- Protected: can be accessed only by the children class that extends the class mother
+- <<Package Private>>: can be accessed only the classes in the same package. 
+    There is no keyword to that, so an attribute is considered Package Private when you don't specify any visibility.
+    E.g.: 
+        private integer id; => private attribute
+        integer age;        => package private attribute
+- Private: can be accessed only by the proper class.  
