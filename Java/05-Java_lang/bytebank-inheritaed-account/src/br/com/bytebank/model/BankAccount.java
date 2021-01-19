@@ -1,5 +1,12 @@
 package br.com.bytebank.model;
 
+/**
+ * Class represents a frame of a Bank Account.
+ * 
+ * @author "Luis Ricardo Benhossi"
+ * @version
+ */
+
 public abstract class BankAccount {
 
 	protected double balance;
@@ -8,6 +15,12 @@ public abstract class BankAccount {
 	private Client holder;
 	private static int totalAccounts = 0;
 	
+	/**
+	 * Constructor to initialize the Bank Account object from agency and account number.
+	 * 
+	 * @param agency
+	 * @param accountNumber
+	 */
 	public BankAccount(int agency, int accountNumber) {
 		BankAccount.totalAccounts++; 
 		this.accountNumber = accountNumber;
@@ -69,6 +82,12 @@ public abstract class BankAccount {
 	
 	}
 	
+	/**
+	 * Withdraw value must be higher than balance.
+	 * 
+	 * @param value
+	 * @throws InsufficientFundsCheckedException
+	 */
 	public void withdrawChecked(double value) throws InsufficientFundsCheckedException{
 		
 		if (this.balance < value) {			

@@ -1,5 +1,12 @@
 package br.com.bytebank.model;
 
+/**
+ * Class represents the ByteBank costumers.
+ * 
+ * @author "Luis Ricardo Benhossi"
+ * @version 0.1
+ *
+ */
 public class Client {
 
 	private String name;
