@@ -31,5 +31,10 @@ public class CurrentAccount extends BankAccount implements Taxable{
 		return super.balance * 0.01;
 	}
 	
+//	toString was override here and in the mother class (BanAccount)
+	@Override
+	public String toString() {
+		return "Current Account" + super.toString();
+	}
 	
 }
